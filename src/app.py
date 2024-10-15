@@ -2,6 +2,7 @@ import streamlit as st
 from datetime import datetime, time
 from contract import Vendas
 from pydantic import ValidationError
+from database import salvar_no_postgres
 
 def main():
     st.title("Sist. de CRM Zap - Simples")
@@ -26,6 +27,9 @@ def main():
             )
 
             st.write(venda)
+            
+            # Save to postgres
+            salvar_no_postgres(venda)
         except ValidationError as e:
             st.error(f"Deu erro {e}")
 
